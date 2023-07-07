@@ -30,7 +30,7 @@ def create_table():
         `USER_ID` bigint(20) NOT NULL,
         `FIRST_NAME` varchar(100) DEFAULT NULL,
         `LAST_NAME` varchar(100) DEFAULT NULL,
-        `SEX` varchar(100) DEFAULT NULL,
+        `gender` varchar(100) DEFAULT NULL,
         `AGE` int(11) DEFAULT NULL,
         `JOB` varchar(100) DEFAULT NULL,
         primary key (USER_ID)
@@ -54,3 +54,17 @@ def add_user(user_id):
         sql.commit()
     except Exception as e:
         return "user already exist"
+
+
+def update_user(user_id, person):
+    command = f"""
+    update db_01.users set
+    FIRST_NAME = "{person.first_name}",
+    LAST_NAME = "{person.last_name}",
+    age = "{person.age}",
+    JOB = "{person.job}",
+    gender = "{person.gender}" WHERE USER_ID={user_id};
+    """
+    cursor = sql.cursor()
+    cursor.execute(command)
+    sql.commit()
